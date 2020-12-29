@@ -17,3 +17,22 @@ I wanted to have some kind of authentication in front of prometheus/grafana. Tha
 So I figured, if I managed to put this together might as well share it, and save some headaches for others. I think the struggle for the most was around certs, and https for traefik and authelia middleware. Which is pretty easily solveable, once you start reading documentation.
 
 Ui.: If you know, certs and PKI my solution is not for you.  
+
+#### Technical: 
+
+Currently authentication is only for prometheus.
+After a `docker-compose up -d`, you can reach prometheus on: 
+https://prometheus.docker.localhost 
+note: only on https, there's no redirection.
+That's when the middleware comes to work, and brings up authelia's log in page. You should be able to log in with `admin/Password.1`, 
+
+And boom, magic, authelia authenticates you, and prometheus is there.
+<br> pw generation: <br>
+`docker run authelia/authelia authelia hash-password <yourpw> | sed 's/Password hash: //g'` <br>
+
+
+#### Magic
+
+this is the line, label actually, that makes it possible:<br>
+`- "traefik.http.routers.authelia.tls=true"` <br>
+this has traefik generate a cert for itself so that it can communicate via https with the middleware to authelia.
