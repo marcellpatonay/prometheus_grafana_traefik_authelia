@@ -1,0 +1,4 @@
+providers:
+  docker:
+    tls:
+      insecureSkipVerify: true

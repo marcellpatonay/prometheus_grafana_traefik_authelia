@@ -1,0 +1,40 @@
+host: 0.0.0.0
+port: 9091
+log_level: debug
+jwt_secret: v3ry_important_s3cr3t
+#default_redirection_url: https://authelia.docker.localhost
+server:
+  path: ""
+totp:
+  issuer: authelia.com
+
+authentication_backend:
+  file:
+    path: /config/users_database.yml
+
+access_control:
+  default_policy: deny
+  rules:
+    - domain: prometheus.docker.localhost
+      policy: one_factor
+
+session:
+  name: authelia_session
+  secret: cookie_monst3r
+  expiration: 3600 # 1 hour
+  inactivity: 300 # 5 minutes
+  domain: docker.localhost
+  # Should match whatever your root protected domain is
+
+regulation:
+  max_retries: 3
+  find_time: 120
+  ban_time: 300
+
+storage:
+  local:
+    path: /config/db.sqlite3
+
+notifier:
+  filesystem:
+    filename: /config/notification.txt
