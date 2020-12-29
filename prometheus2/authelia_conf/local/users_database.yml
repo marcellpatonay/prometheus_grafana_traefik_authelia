@@ -1,8 +1,8 @@
 users:
-  mpatonay:
-    displayname: "marcell"
+  admin:
+    displayname: "admin"
     password: "$argon2id$v=19$m=1048576,t=1,p=8$S3Z0eUU1byt0S0dhZUdZRQ$2ocEfFADgYo0fIxTvVDSUesLXzG0uePXaWuzN1LZ1cQ"
-    email: "mpatonay@chemaxon.com"
+    email: "youremail@google.com"
     groups:
       - admins
       - dev
